@@ -1,0 +1,10 @@
+---
+- name: install java 
+  hosts: app
+  become: true
+  tasks:
+    - name: install nodejs
+      ansible.builtin.package:
+        name: "{{ nodejs-package }}"
+        state: present
+   

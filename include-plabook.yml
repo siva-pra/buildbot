@@ -1,0 +1,10 @@
+---
+
+- name: install the node js
+  hosts: all
+  become: yes
+  tasks:
+    - name: update the ubuntu
+      apt:
+        update_cache: yes
+    - include_tasks: task.yml

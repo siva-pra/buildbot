@@ -1,0 +1,14 @@
+---
+- name: create namaspace using ansible 
+  hosts: all
+  become: yes
+  vars:
+    - namespace_name: my_namespace
+  tasks:
+    - name: create my namespace
+      kubernetes.core.k8s:
+        api_version: v1
+        kind: namespace
+        name: "{{ namespace_name }}"
+        state: present
+        

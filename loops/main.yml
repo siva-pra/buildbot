@@ -1,0 +1,22 @@
+---
+- name: install the packages
+  hosts: all
+  become: yes 
+  tasks: 
+    - name: install
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - git
+        - tree
+        - python
+---
+- name: install packages
+  hosts: appserver
+  become: true
+  tasks:
+    - name: install 
+      yum:
+        name: ["git", "tree", "openjdk-ll-jdk"]
+        state: present

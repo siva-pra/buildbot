@@ -1,0 +1,21 @@
+---
+- name: create user
+  hosts: all
+  become: true
+  tasks:
+    - name: create new user
+      ansible.builtin.user:
+        name: siva
+        comment: new user
+        uid: 1020
+        group: devops
+        shell: /bin/bash
+        state: present
+    - name: creare file
+      ansible.builtin.file:
+        path: /home/siva
+        owner: tomcat
+        group: tomcat
+        state: file
+        mode: 0755
+        

@@ -1,0 +1,54 @@
+---
+- name: create the deployment
+  hosts: all
+  become: yes
+  tasks:
+    - name: create namespace
+      kubernetes.core.k8s:
+        definition:
+          apiVersion: v1
+          kind: Namespace
+          name: my_namespace
+          state: present
+    - name: create deployment
+      kubernetes.core.k8s:
+        definition:
+          apiVersion: app/v1
+          kind: Deployment
+          metadate:
+            name: myapp
+          namespace: my_namespace
+          spec:
+            recplicas: 2
+            selector: 
+              matchLabels:
+                app: myapp
+            template:
+              metadate:
+                labels:
+                  app: myapp
+              spec:
+                containers:
+                  - name: tomcat
+                    image: tomcat image
+                    ports:
+                      contiainerPort: 80
+                      protocal: tcp
+    - name: create service file
+      kubernetes.core.k8s:
+        definition:
+          apiVersion: v1
+          kind: Service
+          namespace: my_namespace
+          metadate:
+            name: myapp
+          spec:
+            selector:
+              app: myapp
+            ports:
+              - name: https
+                port: 80
+                targetport: 8008
+                nodePort: 32000
+            type: NodePort
+

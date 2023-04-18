@@ -1,0 +1,26 @@
+---
+- name: install the node js
+  hosts: all
+  become: yes
+  tasks:
+    - name: update the ubuntu
+      apt:
+        update_cache: yes
+    - name: install node.js
+      ansible.builtin.apt: 
+        name: nodejs
+        state: present
+    - name: install npm
+      apt: 
+        name: npm
+        state: present
+
+    - name: nodejs version check
+      shell: nodejs --version
+      register: nodejs
+
+    - name: print nodejs version
+      debug:
+        var: nodejs
+    
+      

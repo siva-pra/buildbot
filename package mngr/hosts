@@ -1,0 +1,10 @@
+all:
+  children:
+    app:
+      hosts:
+        172.31.31.165:
+          nodejs-package: nodejs
+          #npm-package: npm
+        172.31.20.222:
+          nodejs-package: nodejs
+          #npm-package: npm
